@@ -38,11 +38,11 @@ class Belt:
 
     def edge(self, t):
 # Printing the item at the out edge of the conveyor belt
-        print 'step %d: %s' % (t, ' | '.join([s.val for s in self.stats]))
+        print('step %d: %s' % (t, ' | '.join([s.val for s in self.stats])))
 
     def start(self, limit=100):
         for t in range(limit):
-            print '\n'
+            print('\n')
 # Moving the belt position
             self.stats = [Stat(self.input.new())] + self.stats[:-1]
 # Print the belt position
@@ -54,7 +54,7 @@ class Belt:
             self.edge(t+1)
 # Now aggregating
             self.computes.start(self.stats[-1])
-            print '\n'
+            print('\n')
         self.computes.report()
 
 class Computes:
@@ -69,8 +69,8 @@ class Computes:
             self.data[key] += 1
 
     def report(self):
-        print 'Total Products: %d' % self.data['P']
-        print 'Total Unpicked: %d' % (self.data['A'] + self.data['B'])
+        print('Total Products: %d' % self.data['P'])
+        print('Total Unpicked: %d' % (self.data['A'] + self.data['B']))
 
 class Staff:
     '''
@@ -93,11 +93,11 @@ class Staff:
     def start(self, stat):
         if all([i in self.available for i in self.all_parts]):
             if self.exc <= 0:
-                print '<%s> P is ready.' % self.worker
+                print('<%s> P is ready.' % self.worker)
                 if stat.val == '':
                     self.available = []
                     self.exc = self.tot_time
-                    print '<%s> Putting P.' % self.worker
+                    print('<%s> Putting P.' % self.worker)
                     stat.val = 'P (%s)' % self.worker
                 else:
                     if self.co_worker: self.co_worker.start(stat)
@@ -108,7 +108,7 @@ class Staff:
         else:
             if stat.val not in self.available and stat.val in self.all_parts:
 # Adding new item to the current workers availability list
-                print '<%s> Picking up %s.' % (self.worker, stat.val)
+                print('<%s> Picking up %s.' % (self.worker, stat.val))
                 self.available.append(stat.val)
                 stat.val = ''
             else:
